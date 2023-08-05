@@ -1,0 +1,412 @@
+//_This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//// FOr login only
+
+model user {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(255)
+  address         String?           @db.VarChar(255)
+  state           state
+  pincode         String            @db.VarChar(6)
+  email           String?
+  password        String            @db.VarChar(255)
+  mobile          String            @db.VarChar(12)
+  UserPermissions userPermissions[]
+}
+
+// A user can form one or more companies. At times he will only be an empoloyee in the company who will not own any company at all
+// User permission decides who has access to which company
+
+//All of any company's details'
+//note every party every transaction every item is a part of a company. They all have to be within a company.
+model company {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(255)
+  address         String?           @db.VarChar(255)
+  state           state
+  pincode         String            @db.VarChar(6)
+  email           String?
+  mobile          String?           @db.VarChar(15)
+  country         String            @default("India")
+  gstID           String?           @default("URP") @db.VarChar(15)
+  gstType         String            @default("Regular") @db.VarChar(15)
+  parties         party[]
+  invoices        invoice[]
+  staffs          staff[]
+  UserPermissions userPermissions[]
+  bankAccounts    bankAccount[]
+  unit            unit[]
+  ledgerGroup     ledgerGroup[]
+  ledger          ledger[]
+  item            item[]
+  service         service[]
+}
+
+//// There will be different poeple registered on the website. 
+// Also they can form one or more companies
+// So after the company has basic details there have to be users based on the permission levels. 
+// Some can view bank details, some cant. Some can only create invoices. Others cant and so on. 
+
+model userPermissions {
+  id          Int        @id @default(autoincrement())
+  user        user       @relation(fields: [userId], references: [id])
+  company     company    @relation(fields: [companyId], references: [id])
+  userId      Int
+  companyId   Int
+  permissions permission
+}
+
+//have to decide the user permissions
+enum permission {
+  Admin
+  Viewer
+  Accountant
+}
+
+// A company will have the following structure
+// 1) Parties (buyers, sellers)
+// 2) Inventory Items/ services, inventory groups and items
+// 3) Bank accounts
+// 4) Staff
+
+model party {
+  //people with whom we do transactions
+  //Some parties which have no names,or identity may also at times be a party
+  //Example cash sales, cleaner, 
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255) //display name of the party
+  address   String    @db.VarChar(255)
+  gstID     String    @db.VarChar(255) //for an unregistered party the GSTID will be URP
+  invoices  invoice[]
+  email     String?   @db.VarChar(80)
+  mobile    String?   @db.VarChar(12)
+  contacts  contact[] //these are people associated with a party. So they could be the owner or staff or soemthing  else
+  Company   company   @relation(fields: [companyId], references: [id])
+  companyId Int
+  reciept   reciept[]
+  payment   payment[]
+}
+
+model item {
+  id           Int         @id @default(autoincrement())
+  name         String      @db.VarChar(255)
+  description  String?     @db.VarChar(255)
+  alias        String?     @db.VarChar(255)
+  unit         unit        @relation(fields: [unitId], references: [id])
+  unitId       Int
+  hsn          hsn         @relation(fields: [hsnId], references: [id])
+  hsnId        Int
+  openingStock Decimal     @default(0)
+  openingValue Decimal     @default(0)
+  ItemEntry    itemEntry[]
+  company      company     @relation(fields: [companyId], references: [id])
+  companyId    Int
+}
+
+model service {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  description  String?        @db.VarChar(255)
+  alias        String?        @db.VarChar(255)
+  sac          sac            @relation(fields: [sacId], references: [id])
+  sacId        Int
+  ServiceEntry serviceEntry[]
+  company      company        @relation(fields: [companyId], references: [id])
+  companyId    Int
+}
+
+// as of now our personal bank account only. we have to think how to automate bank passbook import. 
+model bankAccount {
+  id             Int       @id @default(autoincrement())
+  DisplayName    String    @db.VarChar(255)
+  BankName       String    @db.VarChar(255)
+  BankAddress    String?   @db.VarChar(255)
+  AccountNumber  String    @db.VarChar(25)
+  IFSCode        String?   @db.VarChar(25)
+  SWIFTCode      String?   @db.VarChar(25)
+  Branch         String?   @db.VarChar(25)
+  gstID          String?   @db.VarChar(15)
+  OpeningBalance Decimal   @default(0)
+  reciepts       reciept[]
+  payments       payment[]
+  Company        company   @relation(fields: [companyId], references: [id])
+  companyId      Int
+}
+
+model ledgerGroup {
+  id        Int           @id @default(autoincrement())
+  name      String
+  ledger    ledger[]
+  parent    ledgerGroup?  @relation("ParentgroupSubgroup", fields: [parentid], references: [id])
+  parentid  Int? //will be used for nested subgroups
+  children  ledgerGroup[] @relation("ParentgroupSubgroup")
+  company   company       @relation(fields: [companyId], references: [id])
+  companyId Int
+}
+
+//ledger will have to fulfill many roles.
+model ledger {
+  id                Int           @id @default(autoincrement())
+  name              String        @db.VarChar(56)
+  description       String?       @db.VarChar(255)
+  group             ledgerGroup   @relation(fields: [groupId], references: [id])
+  groupId           Int
+  company           company       @relation(fields: [companyId], references: [id])
+  companyId         Int
+  gstApplicable     Boolean?      @default(false)
+  reverseChargeable Boolean?      @default(false)
+  hsn               hsn?          @relation(fields: [hsnId], references: [id])
+  hsnId             Int?
+  sac               sac?          @relation(fields: [sacId], references: [id])
+  sacId             Int?
+  ledgerEntry       ledgerEntry[]
+  expense           expense[]
+  payment           payment[]
+}
+
+model invoice {
+  id             Int            @id @default(autoincrement())
+  Company        company        @relation(fields: [companyId], references: [id])
+  companyId      Int
+  party          party          @relation(fields: [partyId], references: [id])
+  partyId        Int
+  dateInvoice    DateTime       @db.Date
+  dateEntry      DateTime?      @db.Date
+  dateDispatch   DateTime?      @db.Date
+  entryTime      DateTime       @default(now()) @db.Date
+  transport      String?
+  ewaybill       String?        @db.VarChar(255)
+  invoiceNo      String?        @db.VarChar(18)
+  itemEntries    itemEntry[] //related to inventory items or services items
+  serviceEntries serviceEntry[] // Services entries on the invoice
+  ledgers        ledgerEntry[] //Non Item - Non Servies entries on the invoice
+  narration      String?        @db.VarChar(1023)
+  invoiceType    invoiceType
+  expense        expense[]
+}
+
+enum invoiceType {
+  Purchase
+  Sale
+}
+
+// every ledger entry is based on non item(inventory) non services entries. These include but are 
+// not restricted to - transport charges, coolie charges, packing charges, postage charges, 
+// tds, tcs, discounts etc given by the seller or buyer on his invoice.
+// Note that sometimes the seller makes wrong entries and can skip charging gst on coolie expenses. 
+// So the end user needs to understand how the final cgst/ sgst was reached.
+
+//ledgerEntry only contains entries that are passed through a purchase or sales invoice. 
+// It will not comprise of entries not in the purhase and sales invoices. 
+model ledgerEntry {
+  id        Int      @id @default(autoincrement())
+  Invoice   invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId Int?
+  ledger    ledger   @relation(fields: [ledgerId], references: [id])
+  ledgerId  Int
+  value     Decimal
+}
+
+model itemEntry {
+  id            Int      @id @default(autoincrement())
+  invoice       invoice  @relation(references: [id], fields: [invoiceId])
+  invoiceId     Int
+  item          item     @relation(references: [id], fields: [itemid])
+  itemid        Int
+  quantity      Decimal
+  price         Decimal
+  discount      Decimal
+  hsn           hsn      @relation(fields: [hsnId], references: [id]) //we will need this because the hsn related might change over time because of compliance. 2 digit, 4 digt or 6 or 8 digits
+  hsnId         Int
+  // we will need this because the govt keeps changing the gst rates with time.
+  //taxable amount = quantity*(price)-discount
+  gstrate       Decimal?
+  taxableAmount Decimal?
+  cgst          Decimal?
+  sgst          Decimal?
+  igst          Decimal?
+}
+
+model serviceEntry {
+  id            Int      @id @default(autoincrement())
+  invoice       invoice? @relation(references: [id], fields: [invoiceId])
+  invoiceId     Int?
+  Service       service  @relation(references: [id], fields: [ServiceId])
+  ServiceId     Int
+  rate          Decimal
+  discount      Decimal
+  sac           sac      @relation(fields: [sacId], references: [id]) //we will need this because the hsn related might change over time because of compliance. 2 digit, 4 digt or 6 or 8 digits
+  sacId         Int
+  gstrate       Decimal
+  cgst          Decimal?
+  taxableAmount Decimal?
+  sgst          Decimal?
+  igst          Decimal?
+}
+
+//Note expense model only is about all expenses.
+// Some of these expenses are related to a particular PUrchase or invoice.
+// We will also allow users to map those expense with invoices
+model expense {
+  id        Int      @id @default(autoincrement())
+  ledger    ledger   @relation(fields: [ledgerId], references: [id])
+  ledgerId  Int
+  date      DateTime @db.Date
+  amount    Decimal
+  invoice   invoice? @relation(fields: [invoiceId], references: [id]) //invoice for which this expense corresponds
+  invoiceId Int?
+}
+
+model hsn {
+  id          Int         @id @default(autoincrement())
+  description String      @db.VarChar(4095)
+  hsncode     String      @db.VarChar(255)
+  gstrate     Decimal? //in percentage. Must be between 0 and 100
+  cess        String?     @db.VarChar(4095)
+  itemEntry   itemEntry[]
+  item        item[]
+  ledger      ledger[]
+}
+
+model sac {
+  id           Int            @id @default(autoincrement())
+  description  String         @db.VarChar(4095)
+  saccode      String         @db.VarChar(255)
+  gstrate      Decimal? //in percentage. Must be between 0 and 100
+  ledger       ledger[]
+  serviceEntry serviceEntry[]
+  service      service[]
+}
+
+model tag {
+  name String @unique @db.VarChar(255)
+}
+
+model contact {
+  id      Int     @id @default(autoincrement())
+  name    String  @db.VarChar(255)
+  alias   String? @db.VarChar(255)
+  email   String
+  mobile  String  @db.VarChar(15)
+  party   party?  @relation(fields: [partyId], references: [id])
+  partyId Int?
+}
+
+model reciept {
+  id          Int          @id @default(autoincrement())
+  bankAccount bankAccount? @relation(fields: [bankId], references: [id])
+  bankId      Int?
+  cash        Boolean
+  party       party        @relation(fields: [partyId], references: [id])
+  partyId     Int
+  amount      Decimal
+  date        DateTime     @db.Date
+}
+
+// Note: We could have kept a single model to include both payment and reciept 
+//but for flexibility and keeping for any future feature that might not be concievable today  
+
+model payment {
+  id          Int          @id @default(autoincrement())
+  bankAccount bankAccount? @relation(fields: [bankId], references: [id])
+  bankId      Int?
+  cash        Boolean
+  party       party?       @relation(fields: [partyId], references: [id])
+  partyId     Int?
+  ledger      ledger?      @relation(fields: [ledgerId], references: [id])
+  ledgerId    Int?
+  amount      Decimal
+  date        DateTime     @db.Date
+}
+
+model staff {
+  id        Int          @id @default(autoincrement())
+  name      String       @db.VarChar(255)
+  address   String?      @db.VarChar(255)
+  phone     String?
+  salary    Int
+  days      attendance[]
+  Company   company?     @relation(fields: [companyId], references: [id])
+  companyId Int?
+}
+
+model attendance {
+  id      Int      @id @default(autoincrement())
+  staff   staff    @relation(fields: [staffid], references: [id])
+  staffid Int
+  date    DateTime @db.Date
+  present Boolean
+}
+
+model unit {
+  //we should create a boiler plate for the unit for users to directly import some of the units of their use.
+  //may be we can assign the companyId of 0 so that we can duplicate those entries for any user who starts a new company
+  id           Int        @id @default(autoincrement())
+  name         String?    @db.VarChar(255)
+  symbol       String?    @db.VarChar(255)
+  formalUnit   formalUnit @relation(fields: [formalUnitId], references: [id])
+  formalUnitId Int
+  company      company?   @relation(fields: [companyId], references: [id])
+  companyId    Int
+  Item         item[]
+}
+
+model formalUnit {
+  id         Int    @id @default(autoincrement())
+  formalName String @db.VarChar(25) // as given by the gst portal UQCName
+  formalCode String @db.VarChar(3) // as given by the portal  UQC
+  unit       unit[]
+}
+
+//needs edit to make better. Lets see how to do this
+enum state {
+  JAMMU_AND_KASHMIR_01
+  HIMACHAL_PRADESH_02
+  PUNJAB_03
+  CHANDIGARH_04
+  UTTARAKHAND_05
+  HARYANA_06
+  DELHI_07
+  RAJASTHAN_08
+  UTTAR_PRADESH_09
+  BIHAR_10
+  SIKKIM_11
+  ARUNACHAL_PRADESH_12
+  NAGALAND_13
+  MANIPUR_14
+  MIZORAM_15
+  TRIPURA_16
+  MEGHALAYA_17
+  ASSAM_18
+  WEST_BENGAL_19
+  JHARKHAND_20
+  ODISHA_21
+  CHATTISGARH_22
+  MADHYA_PRADESH_23
+  GUJARAT_24
+  DADRA_AND_NAGAR_HAVELI_26
+  DAMAN_AND_DIU_26
+  MAHARASHTRA_27
+  KARNATAKA_29
+  GOA_30
+  LAKSHADWEEP_31
+  KERALA_32
+  TAMIL_NADU_33
+  PUDUCHERRY_34
+  ANDAMAN_AND_NICOBAR_ISLANDS_35
+  TELANGANA_36
+  ANDHRA_PRADESH_37
+  LADAKH_38
+  OTHER_TERRITORY_97
+  CENTRE_JURISDICTION_99
+}

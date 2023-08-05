@@ -1,0 +1,293 @@
+
+@import "../sass/Button.scss";
+@import "../sass/H1.scss";
+@import "../sass/Text.scss";
+
+#Banner{
+    width: 100%;
+    height: 650px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content:space-evenly;
+    align-items: center;
+    // display: flex;
+    transition: height 0.3s;
+    // background: rgb(83,255,137);
+    background: linear-gradient(17deg,#006DC1 ,#008FFF);
+}
+#div1{
+    width: 60%;
+    height: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    // background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s,height 0.3s;
+    margin: auto;
+}
+#div0{
+    width: 60%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    // background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s,height 0.3s;
+    margin: auto;
+}
+#div1>video{
+    width: 90%;
+    transition: width 0.4s;
+    // border: 1px solid red;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+#div0>video{
+    width: 100%;
+    transition: width 0.4s;
+    // border: 1px solid red;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+// #Banner>div:nth-child(2){
+//     width: 45%;
+//     height: 100%;
+//     /* background-color: red; */
+//     text-align: start;
+//     transition: width 0.3s;
+// }
+// #Banner>div:nth-child(2)>h1{
+//     margin-top: 100px;
+//     font-size: 50px;
+//     color: white;
+// }
+#Banner>div:nth-child(2)>input{
+    width: 60%;
+    height: 35px;
+    border: 1px solid gray;
+    outline: 0px;
+    border-radius: 10px;
+    background-color: White;
+    color: $Text-color;
+    padding: 0px 15px;
+    font-weight: 600;
+    transition: width 0.3s;
+    color: $Text-color
+}
+// #Banner>div:nth-child(2)>label{
+//     display: flex;
+//     justify-content: start;
+//     align-items: flex-start;
+//     gap: 5px;
+//     margin-top: 10px;
+//     margin-left: 10px;
+//     color: $Text-color;
+// }
+// #Banner>div:nth-child(2)>label>p{
+//     width: 60%;
+//     margin-top: -5px;
+//     line-height: 22px;
+//     font-size: 14px;
+//     transition: width 0.2s;
+//     text-align: justify;
+//     color: white;
+// }
+#Banner>div:nth-child(2)>button{
+    width: 20%;
+    margin: auto;
+    height: $Button-Height;
+    border-radius: 10px;
+    border: 0px;
+    background-color: $Button-BGC;
+    color: $Button-TC;
+    box-shadow: $BUtton-Shadow;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    transition: width 0.3s;
+}
+
+#wishlist{
+    width: 40%;
+    margin: auto;
+}
+
+#Banner>div:nth-child(2)>button:hover{
+    background-color: $Button-Hover-BGC;
+}
+
+@media screen and (max-width:1366px) {
+    /* #Banner{
+        height: 550px;
+    } */
+    /* #Banner>div:nth-child(1){
+        width: 40%;
+
+    }
+    #Banner>div:nth-child(2){
+        width:55% ;
+    } */
+
+    // #Banner>div>video{
+    //     width: 85%;
+    //     height: auto;
+    // }
+    #Banner>div>video{
+        width: 100%;
+        height: auto;
+    }
+    // #Banner>div:nth-child(2)>label>p{
+    //     width: 60%;
+    // }
+    // #Banner>div:nth-child(2)>input{
+    //     width: 70%;
+    // }
+    // #Banner>div:nth-child(2)>button{
+    //     width: 30%;
+    // }
+    #wishlist{
+        width: 50%;
+        margin: auto;
+    }
+}
+@media screen and (max-width:1150px){
+    #div1{
+        width: 70%;
+    }
+    #div0{
+        width: 90%;
+    }
+    // #Banner>div:nth-child(2){
+    //     width: 45%;
+    // }
+    // #Banner>div:nth-child(2)>label>p{
+    //     width: 70%;
+    // }
+    // #Banner>div:nth-child(2)>input{
+    //     width: 80%;
+    // }
+    #wishlist>button{
+        width: 25%;
+    }
+    // #Banner>div>img{
+    //     width: 95%;
+    // }
+}
+@media screen and (max-width:990px){
+    #div1{
+        width: 80%;
+    }
+    #div0{
+        width: 90%;
+    }
+    // #Banner>div:nth-child(2){
+    //     width: 45%;
+    // }
+    // #Banner>div:nth-child(2)>label>p{
+    //     width: 90%;
+    // }
+    // #Banner>div:nth-child(2)>input{
+    //     width: 90%;
+    // }
+    // #Banner>div:nth-child(2)>button{
+    //     width: 40%;
+    // }
+    // #Banner>div>img{
+    //     width: 100%;
+    // }
+    #wishlist{
+        width: 60%;
+    }
+}
+@media screen and (max-width:800px){
+    #div1{
+        display: flex;
+        width: 90%;
+    }
+    // #Banner>div:nth-child(2){
+    //     width: 70%;
+    //     text-align: center;
+    // }
+    // #Banner>div:nth-child(2){
+    //     width: 80%;
+    // }
+    // #Banner>div:nth-child(2)>label>p{
+    //     width: 100%;
+    // }
+    // #Banner>div:nth-child(2)>button{
+    //     margin:30px auto;
+    // }
+    // #Banner>div:nth-child(2)>h1{
+    //     margin-top: 30px;
+    // }
+    #Banner{
+        height: 650px;
+    }
+    #wishlist{
+        width: 80%;
+    }
+}
+@media screen and (max-width:600px){
+    #div1{
+        display: flex;
+        width: 95%;
+        height: 80%;
+    }
+    #Banner>div:nth-child(1)>video{
+        width: 90%;
+        height: auto;
+    }
+    #wishlist{
+        width: 90%;
+        height: 20%;
+    }
+    #Banner{
+        height:500px;
+    }
+    #wishlist>input{
+        width: 50%;
+    }
+    #wishlist>button{
+        width: 30%;
+    }
+}
+@media screen and (max-width:420px){
+    #Banner{
+        height:350px;
+    }
+    #div1{
+        height: 70%;
+    }
+    #Banner>div:nth-child(2){
+        width: 95%;
+        display: block;
+        margin: auto;
+        gap: 0px;
+    }
+    #wishlist>input{
+        width: 45%;
+    }
+    #wishlist>button{
+        width: 35%;
+    }
+}
+@media screen and (max-width:300px){
+    
+    #Banner{
+        height: 300px;
+    }
+    #Banner>div:nth-child(2)>h1{
+        margin-top: 30px;
+    }
+}

@@ -1,0 +1,13 @@
+.inventory{
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 200px;
+    gap: 10px;
+  }
+  .stockitems{
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .itemarea {
+    grid-column: 1/2;
+    grid-row: 1;
+  }

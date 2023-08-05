@@ -1,0 +1,210 @@
+@import "../sass/Button.scss";
+@import "../sass/Text.scss";
+
+#Navbar{
+    // background-color: #0958d9;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 50px;
+}
+#Navbar>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 20%;
+    // background-color: red;
+}
+#Navbar>div:nth-child(1){
+}
+#Navbar>div:nth-child(1)>img{
+    width:120px;
+    height: 120px;
+}
+#Navbar>div:nth-child(2){
+    line-height: $Text-LH;
+    color: $Text-color;
+    width: 30%;
+    word-spacing: 5px;
+}
+#Navbar>div:nth-child(3){
+    display: grid;
+    height: 70%;
+}
+#Navbar>div:nth-child(3)>div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+#Navbar>div:nth-child(3)>div>input{
+    border-radius: 7px;
+    border: 1px solid gray;
+    outline: 0px;
+    height: 25px;
+    padding-left: 10px;
+    width: 100px;
+}
+#Navbar>div:nth-child(3)>div>button{
+    width: 10%;
+    background-color: transparent;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+#Navbar>div:nth-child(3)>div>button:nth-child(2){
+    display: none;
+}
+#Navbar>div:nth-child(3)>div>button>img{
+    width: 20px;
+}
+#Navbar>div:nth-child(3)>button{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: auto;
+    gap: 5px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: $Button-BGC;
+    color: $Button-TC;
+    box-shadow: $BUtton-Shadow;
+    cursor: pointer;
+}
+#popupButn{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: auto;
+    gap: 5px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: $Button-BGC;
+    color: $Button-TC;
+    box-shadow: $BUtton-Shadow;
+    cursor: pointer;
+}
+#Navbar>div:nth-child(3)>button:nth-child(3){
+    display: none;
+}
+#Navbar>div:nth-child(3)>button:nth-child(3)>img{
+    width: 30px;
+}
+#Navbar>div:nth-child(3)>button:hover{
+    background-color: $Button-Hover-BGC;
+}
+#popupButn:hover{
+    background-color: $Button-Hover-BGC;
+}
+
+
+@media screen and (max-width:1150px){
+    #Navbar{
+        justify-content: space-evenly;
+    }
+    #Navbar>div:nth-child(3){
+        width: 30%;
+    }
+}
+@media screen and (max-width:1000px){
+    #Navbar{
+        justify-content: space-between;
+    }
+    
+    #Navbar>div:nth-child(1){
+        width: 20%;
+        justify-content: end;
+    }
+    #Navbar>div:nth-child(3){
+        width: 35%;
+    }
+    #Navbar>div:nth-child(2){
+        display: none;
+    }
+}
+@media screen and (max-width:850px){
+    #Navbar{
+        justify-content: space-around;
+    }
+
+    #Navbar>div:nth-child(1){
+        width: 20%;
+        justify-content: start;
+    }
+    #Navbar>div:nth-child(3){
+        width: 45%;
+    }
+}
+@media screen and (max-width:650px){
+    #Navbar{
+        justify-content: space-around;
+    }
+
+    #Navbar>div:nth-child(1){
+        width: 30%;
+        justify-content: start;
+    }
+    #Navbar>div:nth-child(3){
+        width: 57%;
+        justify-content: end;
+    }
+}
+// @media screen and (max-width:500px){
+//     #Navbar>div:nth-child(3){
+//         width: 47%;
+//         justify-content: space-between;
+//         height: 90%;
+//         display: flex;
+//     }
+//     #Navbar>div:nth-child(3)>div{
+//         display: grid;
+//         // justify-content: start;
+//         // align-items: center;
+//         grid-template-columns: repeat(2,1fr);
+//         gap: 10px;
+//     }
+//     // #Navbar>div:nth-child(3)>div>input{
+//     //     border-radius: 7px;
+//     //     border: 1px solid gray;
+//     //     outline: 0px;
+//     //     height: 20px;
+//     //     padding-left: 10px;
+//     //     width: 100px;
+//     // }
+//     #Navbar>div:nth-child(3)>div>button:nth-child(4){
+//         display: none;
+//     }
+//     #Navbar>div:nth-child(3)>div>button:nth-child(2){
+//         display: flex;
+//     }
+//     #Navbar>div:nth-child(3)>button:nth-child(2){
+//         display: none;
+//     }
+//     #Navbar>div:nth-child(3)>button:nth-child(3){ 
+//         display: flex;
+//         width: 40px;
+//         height: 40px;
+//         border-radius: 50px;
+//     }
+// }
+// @media screen and (max-width:400px){
+//     #Navbar>div:nth-child(3){
+//         width: 47%;
+//         justify-content: center;
+//         height: 90%;
+//     }
+//     #Navbar>div:nth-child(3){
+//         width: 55%;
+//         justify-content: end;
+//     }
+// }
+

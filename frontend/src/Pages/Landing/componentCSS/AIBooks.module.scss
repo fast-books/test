@@ -1,0 +1,177 @@
+@import "../sass/H1.scss";
+@import "../sass/Text.scss";
+
+#AIBooks{
+    width: 60%;
+    //  border: 1px solid rgb(88, 121, 84); 
+    height: 450px;
+    margin: 20px auto;
+    transition: width  0.3s;
+}
+#AIBooks>div:nth-child(1){
+    width: 100%;
+    height: 15%;
+    //  background-color: aqua; 
+}
+#AIBooks>div:nth-child(1)>h1{
+    margin: 0px;
+    color:$H1-TC;
+    font-size: 40px;
+}
+#AIBooks>div:nth-child(1)>div{
+    border: 1px solid #acacac;
+    width: 45%;
+    margin: 0px auto;
+    transition: width 0.3s;
+
+}
+#AIBooks>div:nth-child(1)>p{
+    margin-top: 5px;
+    font-size: 14px;
+    color: $Text-color;
+    font-weight: 600;
+}
+#AIBooks>div:nth-child(2){
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: red; */
+    margin-top: 50px;
+    transition: height 0.3s,width 0.3s;
+}
+
+#AIBooks>div:nth-child(2)>div{
+    width: 45%;
+    height: 100%;
+    text-align: start;
+    /* background-color: pink; */
+}
+#AIBooks>div:nth-child(2)>div>label>img{
+    width: 20px;
+    height: 20px;
+}
+#AIBooks>div:nth-child(2)>div>label{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    // font-size: 14px;
+    font-weight: 500;
+    color: $Text-color;  
+}
+
+@media screen and (max-width:1366px) {
+    #AIBooks{
+        width: 70%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        width: 50%;
+    }
+}
+@media screen and (max-width:1150px){
+    #AIBooks{
+        width: 80%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        width: 55%;
+    }
+}
+@media screen and (max-width:990px){
+    #AIBooks{
+        width: 90%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        width: 60%;
+    }
+}
+@media screen and (max-width:800px){
+    #AIBooks{
+        width: 95%;
+        height: 730px;
+    }
+    #AIBooks>div:nth-child(1){
+        height: 10%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        width: 65%;
+    }
+    #AIBooks>div:nth-child(2){
+        display: block;
+        height: 85%;
+    }
+    #AIBooks>div:nth-child(2)>div{
+        width: 70%;
+        height: 45%;
+        margin:0px auto;
+    }
+}
+@media screen and (max-width:680px){
+    #AIBooks{
+        width: 95%;
+        height: 800px;
+    }
+    #AIBooks>div:nth-child(1){
+        height: 10%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        display: none;
+    }
+    #AIBooks>div:nth-child(1)>p{
+        display: none;
+    }
+    #AIBooks>div:nth-child(2)>div{
+        width: 80%;
+        transition: width 0.3s;
+        height: 41%;
+        margin:0px auto;
+    }
+}
+@media screen and (max-width:590px){
+    #AIBooks{
+        width: 95%;
+        height: 800px;
+    }
+    #AIBooks>div:nth-child(2)>div{
+        transition: height 0.3s;
+        height: 47%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        width: 85%;
+    }
+}
+@media screen and (max-width:400px){
+    #AIBooks{
+        width: 95%;
+        height: 900px;
+    }
+    #AIBooks>div:nth-child(2)>div{
+        transition: height 0.3s;
+        height: 50%;
+    }
+    #AIBooks>div:nth-child(1)>div{
+        width: 95%;
+    }
+}
+@media screen and (max-width:338px){
+    #AIBooks{
+        width: 95%;
+        height: 950px;
+    }
+    #AIBooks>div:nth-child(1){
+        height: 15%;
+    }
+    #AIBooks>div:nth-child(2){
+        height: 85%;
+    }
+    #AIBooks>div:nth-child(2)>div{
+        transition: height 0.3s;
+        height: 50%;
+    }
+}
+@media screen and (max-width:300px){
+    #AIBooks{
+        height: 1100px;
+    }
+}

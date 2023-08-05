@@ -1,0 +1,54 @@
+@import "../sass/Button.scss";
+@import "../sass/Text.scss";
+
+#popupButn:hover{
+    background-color: $Button-Hover-BGC;
+}
+#popupButn{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: auto;
+    gap: 5px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: $Button-BGC;
+    color: $Button-TC;
+    box-shadow: $BUtton-Shadow;
+    cursor: pointer;
+}
+#popup{
+    display: grid;
+    gap: 10px;
+    padding-top: 20px;
+    width: 300px;
+    cursor: pointer;
+}
+#popup>input,div>input{
+    border-radius: 7px;
+    border: 1px solid gray;
+    outline: 0px;
+    height: 35px;
+    padding-left: 10px;
+    width: 80%;
+}
+#popup>div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#popup>div>button>img{
+    width: 20px;
+}
+#popup>div>button{
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    
+}
+#popup>p{
+    margin-top: -45px;
+    margin-left: 180px;
+}

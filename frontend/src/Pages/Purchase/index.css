@@ -1,0 +1,108 @@
+.App {
+    background-color: #d1f2eb;
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+    margin: 0;
+    width: 100vw;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #d1f2eb;
+    border: 1px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    background-color: #a3e4d7;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    border: 1px solid #a3e4d7;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.total {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+tfoot {
+    border-top: 1px solid #a3e4d7;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    width: 40%;
+}
+
+.input-container {
+    display: flex;
+}
+
+.input-container {
+    position: relative;
+    /* Add relative position here */
+}
+
+.autocomplete-dropdown {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: absolute;
+    /* Keep the absolute position */
+    z-index: 99;
+    background-color: rgb(81, 169, 228);
+    /* Change from #f9f9f9 to blue */
+    color: white;
+    /* Change text color to white for visibility */
+    max-height: 150px;
+    overflow-y: auto;
+    left: 100%;
+    /* This will move the dropdown to the right of the input */
+    top: 0;
+    /* Align the dropdown with the top of the input */
+    width: 200px;
+    /* Set a fixed width for the dropdown */
+}
+
+.autocomplete-dropdown div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-dropdown div:hover {
+    background-color: #f1f1f1;
+}
