@@ -16,6 +16,7 @@ import service from './data_apis/service';
 import invoice from './data_apis/invoice';
 const prisma = new PrismaClient();
 async function main() {
+  console.log('Tags to be seeded:', tags);
   const seedtags = await prisma.tag.createMany({ data: tags })
   const seeduser = await prisma.user.createMany({ data: user })
   const seedcomp = await prisma.company.createMany({ data: company })
