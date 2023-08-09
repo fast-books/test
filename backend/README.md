@@ -97,3 +97,4 @@ DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database>"
 - [Express.js](https://expressjs.com/) - The web application framework used
 - [Prisma](https://www.prisma.io/) - The ORM used
 - [PostgreSQL](https://www.postgresql.org/) - The database used
+

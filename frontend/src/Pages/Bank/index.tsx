@@ -1,26 +1,32 @@
-import { Toaster } from "react-hot-toast"
-import BankTable from "./bankTable"
+import { Toaster } from "react-hot-toast";
+import BankTable from "./bankTable";
+import { JSX } from "react/jsx-runtime";
+import React from "react";
 
-function index() {
+function Index(): JSX.Element {
   return (
-
-    <div>
+    <div> {/* Wrap in a <div> */}
       <Toaster
-      position="top-center"
-      gutter={12}
-      containerStyle={{margin:"8px"}}
-      toastOptions={{
-        success: {duration:3000},
-        error:{duration:5000},
-        style:{fontSize:'16px',
-              padding:'16px 24px'}
-      }}
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: { duration: 5000 },
+          style: {
+            fontSize: '16px',
+            padding: '16px 24px'
+          }
+        }}
       />
-      <BankTable/></div>
-  )
+      <BankTable />
+    </div>
+  );
 }
 
-export default index
+export default Index;
+
+
 
   
 // import * as React from 'react'
