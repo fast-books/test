@@ -289,7 +289,7 @@ model sac {
 }
 
 model tag {
-  name String @unique @db.VarChar(255)
+  name  String @unique
 }
 
 model contact {

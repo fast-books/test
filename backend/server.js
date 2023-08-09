@@ -2,14 +2,20 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const express = require('express');
+const cors = require('cors');
 const app = express();
+app.use(cors(
+    {
+        origin:"http://localhost:5173"
+    }
+));
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 module.exports = app;
 app.use(express.json())
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT||5000;
 
 const items = require('./routes/items');
 const parties = require('./routes/parties');
@@ -21,7 +27,11 @@ const payment = require('./routes/payment');
 const verifyGST = require('./api/verifyGST');
 
 
-//company routes
+
+app.get('/',cors(),(req, res) => {
+    res.send('Hello, this is the root endpoint!');
+});
+// company routes
 app.get('/api/companies/:id', company.one);
 app.get('/api/companies.json', company.list);
 app.get('/api/companies/edit/:id', company.edit);
@@ -42,8 +52,8 @@ app.get('/api/parties/add', parties.add);
 //banks routes
 app.get('/api/banks.json', banks.list);
 app.get('/api/banks/:id.json', banks.one);
-app.get('/api/banks/edit/:id', banks.edit);
-app.get('/api/banks/add', banks.add);
+app.put('/api/banks/edit/:id', banks.edit);
+app.post('/api/banks/add', banks.add);
 app.delete('/api/banks/:id', banks.delete);
 
 //invoices routes

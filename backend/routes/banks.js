@@ -1,5 +1,3 @@
-'use strict'
-
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -31,8 +29,8 @@ exports.one = async function (req, res) {
 
 // New bank
 exports.add = async function (req, res) {
-  const { DisplayName, BankName, BankAddress, AccountNumber, IFSCode, SWIFTCode, Branch, gstId, OpeningBalance, companyId } = req.body;
-
+  const { DisplayName, BankName, BankAddress, AccountNumber, IFSCode, SWIFTCode, Branch, gstID, OpeningBalance, companyId } = req.body;
+  console.log(DisplayName, BankName, BankAddress, AccountNumber, IFSCode, SWIFTCode, Branch, gstID, OpeningBalance, companyId);
   try {
     const newBank = await prisma.bankAccount.create({
       data: {
@@ -43,13 +41,14 @@ exports.add = async function (req, res) {
         IFSCode,
         SWIFTCode,
         Branch,
-        gstId,
+        gstID,
         OpeningBalance,
-        company: { connect: { id: companyId } },
+        Company: { connect: { id: companyId } },
       },
     });
     res.json(newBank);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -57,22 +56,40 @@ exports.add = async function (req, res) {
 // Modify a bank by id
 exports.edit = async (req, res) => {
   const { id } = req.params;
-  const { DisplayName, BankName, BankAddress, AccountNumber, IFSCode, SWIFTCode, Branch, gstID, OpeningBalance, companyId } = req.body;
-
+  const { DisplayName,
+    BankName,    
+     BankAddress,
+  AccountNumber,
+    IFSCode,
+   SWIFTCode ,      
+   Branch ,
+   gstID,
+   OpeningBalance,
+    companyId } = req.body;
+  console.log(id, DisplayName,
+    BankName,    
+     BankAddress,
+  AccountNumber,
+    IFSCode,
+   SWIFTCode ,      
+   Branch ,
+   gstID,
+   OpeningBalance,
+    companyId);
   try {
     const updatedBank = await prisma.bankAccount.update({
       where: { id: parseInt(id) },
       data: {
         DisplayName,
-        BankName,
-        BankAddress,
-        AccountNumber,
+        BankName,    
+         BankAddress,
+      AccountNumber,
         IFSCode,
-        SWIFTCode,
-        Branch,
-        gstID,
-        OpeningBalance,
-        company: { connect: { id: companyId } },
+       SWIFTCode ,      
+       Branch ,
+       gstID,
+       OpeningBalance,
+        Company : { connect: { id:companyId } },
       },
     });
     res.json(updatedBank);

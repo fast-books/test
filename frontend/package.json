@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@fvilers/disable-react-devtools": "^1.3.0",
-    "@tanstack/react-query": "^4.32.1",
+    "@tanstack/react-query": "^4.32.6",
     "@tanstack/react-query-devtools": "^4.32.1",
     "@tanstack/react-table": "^8.9.3",
     "antd": "^5.7.2",
