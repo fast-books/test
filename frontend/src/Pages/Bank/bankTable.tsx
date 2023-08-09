@@ -23,38 +23,39 @@ export default function BankTable(): any {
 
   return (
     <>
-    <table>
-      <tbody>
-      <tr>
-      <td>
-        <label htmlFor="DisplayName">DisplayName</label>
-      </td>
-      <td>
-        <label htmlFor="BankName">BankName</label>
-      </td>
-      <td>
-        <label htmlFor="BankAddress">BankAddress</label>
-      </td>
-      <td>
-        <label htmlFor="AccountNumber">AccountNumber</label>
-      </td>
-      <td>
-        <label htmlFor="IFSCode">IFSCode</label>
-      </td>
-      <td>
-        <label htmlFor="OpeningBalance">OpeningBalance</label>
-      </td>
-      <td>
-        <label htmlFor="Delete">Delete</label>
-      </td>
-      
-      </tr>
-        {banks.map((one: BankModel) => (
-          <BankRow bank={one} key={one.id} />
-        ))}
-      </tbody>
-    </table>
-    <button onClick={handleNewRow}>New Row</button>
+    <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <label htmlFor="DisplayName">DisplayName</label>
+              </td>
+              <td>
+                <label htmlFor="BankName">BankName</label>
+              </td>
+              <td>
+                <label htmlFor="BankAddress">BankAddress</label>
+              </td>
+              <td>
+                <label htmlFor="AccountNumber">AccountNumber</label>
+              </td>
+              <td>
+                <label htmlFor="IFSCode">IFSCode</label>
+              </td>
+              <td>
+                <label htmlFor="OpeningBalance">OpeningBalance</label>
+              </td>
+              <td>
+                <label htmlFor="Delete">Delete</label>
+              </td>
+            </tr>
+            {banks.map((one: BankModel) => (
+              <BankRow bank={one} key={one.id} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <button onClick={handleNewRow}>New Row</button>
     </>
   );
 }
