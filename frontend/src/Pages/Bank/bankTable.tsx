@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+/* import { useQuery } from "@tanstack/react-query";
 import { banksData } from "./banksData";
 import { BankModel } from "./Models";
 import BankRow from "./BankRow";
@@ -19,3 +19,36 @@ export default function BankTable(): any {
     {banks.map((one: BankModel) => <BankRow bank={one} key = {one.id} />)}
     </tbody></table>
 )}
+ */
+
+
+import { useQuery } from "@tanstack/react-query";
+import { banksData } from "./banksData";
+import { BankModel } from "./Models";
+import BankRow from "./BankRow";
+import { GridLoader } from "react-spinners";
+import React from "react";
+
+export default function BankTable(): JSX.Element {
+  const { isLoading, data: banks, error } = useQuery({
+    queryKey: ['banks'],
+    queryFn: banksData,
+  });
+
+  if (isLoading) return <GridLoader color="#36d7b7" />;
+  if (error) {
+    return <div>Error found</div>; // Wrap in a <div>
+  } 
+
+  return (
+    <div>
+      <table>
+        <tbody>
+          {banks.map((one: BankModel) => (
+            <BankRow bank={one} key={one.id} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
